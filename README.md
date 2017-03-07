@@ -1,1 +1,2 @@
-SourceMod-Plugins
+# sm-plugins
+My SourceMod plugins
