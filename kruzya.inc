@@ -61,7 +61,7 @@ public void Kruzya_DEC2RGB(int iColor, int &iRed, int &iGreen, int &iBlue) {
  *
  * @return  int     DEC-представление строки.
  */
-int Kruzya_HEX2DEC(const char[] szHEX) {
+stock int Kruzya_HEX2DEC(const char[] szHEX) {
     int iResult = 0;
 
     for (int i; i<strlen(szHEX); i++) {
