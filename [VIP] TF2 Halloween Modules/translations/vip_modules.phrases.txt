@@ -1,0 +1,14 @@
+"Phrases"
+{
+    "TF2_DistortedHalloweenVoice"
+    {
+        "ru"    "Искажённый голос (Хэллоуин)"
+        "en"    "Distorted voice (Halloween)"
+    }
+
+    "TF2_HalloweenFootprints"
+    {
+        "ru"    "Следы под ногами (Хэллоуин)"
+        "en"    "Footsteps (Halloween)"
+    }
+}

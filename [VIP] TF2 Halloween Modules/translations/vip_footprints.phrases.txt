@@ -1,0 +1,115 @@
+"Phrases"
+{
+    // Заголовок меню
+    "MenuTitle"
+    {
+        "ru"        "Выберите эффект:"
+        "en"        "Choose a effect:"
+    }
+
+    // Эффекты
+    "TF2_NoEffect"
+    {
+        "ru"        "Без эффекта"
+        "en"        "No effect"
+    }
+
+    "TF2_TeamBased"
+    {
+        "ru"        "Командный цвет"
+        "en"        "Team Based"
+    }
+
+    "TF2_Blue"
+    {
+        "ru"        "Синий"
+        "en"        "Blue"
+    }
+
+    "TF2_LightBlue"
+    {
+        "ru"        "Светло-синий"
+        "en"        "Light Blue"
+    }
+
+    "TF2_Yellow"
+    {
+        "ru"        "Жёлтый"
+        "en"        "Yellow"
+    }
+
+    "TF2_CorruptedGreen"
+    {
+        "en"        "Corrupted Green"
+    }
+
+    "TF2_DarkGreen"
+    {
+        "ru"        "Тёмно-зелёный"
+        "en"        "Dark Green"
+    }
+
+    "TF2_Lime"
+    {
+        "ru"        "Лаймовый"
+        "en"        "Lime"
+    }
+
+    "TF2_Brown"
+    {
+        "ru"        "Коричневый"
+        "en"        "Brown"
+    }
+
+    "TF2_OakTreeBrown"
+    {
+        "en"        "Oak Tree Brown"
+    }
+
+    "TF2_Flames"
+    {
+        "ru"        "Пламя"
+        "en"        "Flames"
+    }
+
+    "TF2_Cream"
+    {
+        "ru"        "Кремовый"
+        "en"        "Cream"
+    }
+
+    "TF2_Pink"
+    {
+        "ru"        "Розовый"
+        "en"        "Pink"
+    }
+
+    "TF2_SatansBlue"
+    {
+        "ru"        "Синий Сатаны"
+        "en"        "Satans Blue"
+    }
+
+    "TF2_Purple"
+    {
+        "ru"        "Фиолетовый"
+        "en"        "Purple"
+    }
+
+    "TF2_numbers"
+    {
+        "en"        "4 8 15 16 23 42"
+    }
+
+    "TF2_GhostInTheMachine"
+    {
+        "ru"        "Привидения в машине"
+        "en"        "Ghost In The Machine"
+    }
+
+    "TF2_HolyFlame"
+    {
+        "ru"        "Святое пламя"
+        "en"        "Holy Flame"
+    }
+}

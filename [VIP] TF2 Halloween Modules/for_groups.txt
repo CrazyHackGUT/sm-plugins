@@ -1,0 +1,4 @@
+Вписать в нужную группу:
+
+        "TF2_DistortedHalloweenVoice"   "1"
+        "TF2_HalloweenFootprints"       "1"
