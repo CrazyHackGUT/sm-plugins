@@ -1,0 +1,195 @@
+/**
+ * Переводы VIP-модуля Custom Chat Colors
+ */
+"Phrases"
+{
+    // Главное меню
+    "CCC_Main_Title"
+    {
+        "ru"        "Настройки чата"
+        "en"        "Chat Settings"
+    }
+
+    "CCC_Item_PrefixSetup"
+    {
+        "ru"        "Настроить префикс"
+        "en"        "Setup Tag"
+    }
+
+    "CCC_Item_PrefixColorSetup"
+    {
+        "ru"        "Настроить цвет префикса"
+        "en"        "Setup Tag Color"
+    }
+
+    "CCC_Item_NameColorSetup"
+    {
+        "ru"        "Настроить цвет никнейма"
+        "en"        "Setup Name Color"
+    }
+
+    "CCC_Item_TextColorSetup"
+    {
+        "ru"        "Настроить цвет текста сообщения"
+        "en"        "Setup chat message Text color"
+    }
+
+    // Настройка префикса
+    "CCC_Help_PrefixSetup_1"
+    {
+        "ru"        "Введите необходимый префикс в чат"
+        "en"        "Type the required prefix into the chat"
+    }
+
+    "CCC_Help_PrefixSetup_2"
+    {
+        "ru"        "Введите \"!cancel\" для отмены действия или нажмите \"Назад\""
+        "en"        "Type \"!cancel\" for abort this operation or press \"Back\" button"
+    }
+
+    // Установка цвета
+    "CCC_Item_Red"
+    {
+        "ru"        "Установить консинстенцию красного цвета"
+        "en"        "Setup consistency for red color"
+    }
+
+    "CCC_Item_Green"
+    {
+        "ru"        "Установить консинстенцию зелёного цвета"
+        "en"        "Setup consistency for green color"
+    }
+
+    "CCC_Item_Blue"
+    {
+        "ru"        "Установить консинстенцию синего цвета"
+        "en"        "Setup consistency for blue color"
+    }
+
+    "CCC_Item_Save"
+    {
+        "ru"        "Сохранить изменения"
+        "en"        "Save changes"
+    }
+
+    "CCC_Item_Presets"
+    {
+        "ru"        "Просмотреть готовые варианты цвета"
+        "en"        "View predefined color options"
+    }
+
+    "CCC_Item_Reset"
+    {
+        "ru"        "Сбросить изменения"
+        "en"        "Reset changes"
+    }
+
+    "CCC_Item_Preview"
+    {
+        "ru"        "Предпросмотр"
+        "en"        "Preview"
+    }
+
+    // Колорайзер
+    "CCC_TitleColorizer_RED"
+    {
+        "ru"        "Красный цвет"
+        "en"        "Red color"
+    }
+
+    "CCC_TitleColorizer_GREEN"
+    {
+        "ru"        "Зелёный цвет"
+        "en"        "Green color"
+    }
+
+    "CCC_TitleColorizer_BLUE"
+    {
+        "ru"        "Синий цвет"
+        "en"        "Blue color"
+    }
+
+    "CCC_TitleColorizer_Consistency"
+    {
+        "#format"   "{1:d}"
+        "ru"        "Текущий уровень консинстенции: {1}"
+        "en"        "Current level of consistency: {1}"
+    }
+
+    "CCC_Item_Up"
+    {
+        "#format"   "{1:d}"
+        "ru"        "Добавить {1} единиц"
+        "en"        "Add {1} units"
+    }
+
+    "CCC_Item_UpMAX"
+    {
+        "ru"        "Поднять уровень на максимум"
+        "en"        "Up level to maximum"
+    }
+
+    "CCC_Item_Down"
+    {
+        "#format"   "{1:d}"
+        "ru"        "Убавить {1} единиц"
+        "en"        "Remove {1} units"
+    }
+
+    "CCC_Item_DownMAX"
+    {
+        "ru"        "Опустить уровень на минимум"
+        "en"        "Lower level to minimum"
+    }
+
+    // Пресеты
+    "CCC_Text_SelectPreset"
+    {
+        "ru"        "Выберите пресет"
+        "en"        "Select the Preset"
+    }
+
+    // Уведомления в чате
+    "CCC_Text_NoAvailablePresets"
+    {
+        "ru"        "Нет доступных пресетов"
+        "en"        "No available presets"
+    }
+
+    "CCC_Text_AllChangesCancelled"
+    {
+        "ru"        "Все изменения отменены"
+        "en"        "All changes aborted"
+    }
+
+    "CCC_Text_AllChangesSaved"
+    {
+        "ru"        "Все изменения сохранены"
+        "en"        "All changes saved"
+    }
+
+    "CCC_Text_ChangesReseted"
+    {
+        "ru"        "Все изменения сброшены"
+        "en"        "All changes reseted by default"
+    }
+
+    "CCC_Text_PresetInstalled"
+    {
+        "#format"   "{1:s}"
+        "ru"        "Пресет {1} был успешно установлен"
+        "en"        "Preset {1} has been successfully installed"
+    }
+
+    "CCC_Text_ActionCancelled"
+    {
+        "ru"        "Действие отменено"
+        "en"        "Action aborted"
+    }
+
+    "CCC_Text_PrefixInstalled"
+    {
+        "ru"        "Префикс установлен"
+        "en"        "Tag installed"
+    }
+}
