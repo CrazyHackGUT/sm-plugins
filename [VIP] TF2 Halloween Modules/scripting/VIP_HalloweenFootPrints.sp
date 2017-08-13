@@ -43,7 +43,7 @@
  * @section Constants
  */
 #define PLUGIN_DESCRIPTION  "The footprints of the mercenary Team Fortress 2 from Halloween."
-#define PLUGIN_VERSION      "1.0"
+#define PLUGIN_VERSION      "1.1"
 #define PLUGIN_AUTHOR       "CrazyHackGUT aka Kruzya"
 #define PLUGIN_NAME         "[VIP] Halloween Footprints"
 #define PLUGIN_URL          "https://kruzefag.ru/"
@@ -85,7 +85,6 @@ stock const int g_iFootstepsIDs[] = {
  * @section Global Variables
  */
 Handle  g_hCookie;
-bool    g_bChecked[MPL+1];
 int     g_iFootprint[MPL+1];
 
 /**
@@ -96,13 +95,13 @@ public void OnPluginStart() {
 
     if (VIP_IsVIPLoaded()) {
         VIP_OnVIPLoaded();
-    }
-
-    for (int i; ++i <= MaxClients;) {
-        if (!IsClientInGame(i) || IsFakeClient(i) || !AreClientCookiesCached(i))
-            continue;
-
-        OnClientCookiesCached(i);
+        
+        for (int i; ++i <= MaxClients;) {
+            if (!IsClientInGame(i) || IsFakeClient(i) || !AreClientCookiesCached(i))
+                continue;
+            
+            VIP_OnClientLoaded(i, VIP_IsClientVIP(i));
+        }
     }
 
     LoadTranslations("vip_footprints.phrases");
@@ -124,10 +123,6 @@ public void OnPluginEnd() {
 
 public void OnClientCookiesCached(int iClient) {
     g_iFootprint[iClient] = Kruzya_GetClientIntCookie(iClient, g_hCookie, 0);
-
-    if (g_bChecked[iClient] && VIP_IsClientVIP(iClient) && VIP_GetClientFeatureStatus(iClient, g_szVIP) != NO_ACCESS) {
-        VIP_SetClientFeatureStatus(iClient, g_szVIP, g_iFootprint[iClient] ? ENABLED : DISABLED);
-    }
 }
 
 public void OnClientDisconnect(int iClient) {
@@ -135,7 +130,6 @@ public void OnClientDisconnect(int iClient) {
         return;
 
     Kruzya_SetClientIntCookie(iClient, g_hCookie, g_iFootprint[iClient]);
-    g_bChecked[iClient] = false;
 }
 
 /**
@@ -150,10 +144,6 @@ public void VIP_OnVIPLoaded() {
 }
 
 public void VIP_OnClientLoaded(int iClient, bool bIsVIP) {
-    g_bChecked[iClient] = true;
-    if (!AreClientCookiesCached(iClient))
-        return;
-
     SetupFootprint(iClient, g_iFootprint[iClient]);
 }
 
@@ -166,9 +156,6 @@ public bool VIP_OnTouchedItem(int iClient, const char[] szFeatureName) {
  * @section Editor
  */
 void SetupFootprint(int iClient, int iFootprintID) {
-    if (!g_bChecked[iClient])
-        return;
-
     float fValue = iFootprintID * 1.0;
     TF2Attrib_SetByDefIndex(iClient, 1005, fValue);
 }

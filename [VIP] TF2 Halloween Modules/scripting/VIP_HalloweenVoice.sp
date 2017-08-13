@@ -73,7 +73,6 @@ stock const char g_szVIP[] = "TF2_DistortedHalloweenVoice";
  */
 Handle  g_hCookie;
 bool    g_bEnabled[MPL+1];
-bool    g_bChecked[MPL+1];
 
 /**
  * @section SourceMod events.
@@ -83,13 +82,13 @@ public void OnPluginStart() {
 
     if (VIP_IsVIPLoaded()) {
         VIP_OnVIPLoaded();
-    }
 
-    for (int i; ++i <= MaxClients;) {
-        if (!IsClientInGame(i) || IsFakeClient(i) || !AreClientCookiesCached(i))
-            continue;
+        for (int i; ++i <= MaxClients;) {
+            if (!IsClientInGame(i) || IsFakeClient(i) || !AreClientCookiesCached(i))
+                continue;
 
-        OnClientCookiesCached(i);
+            VIP_OnClientLoaded(i, VIP_IsClientVIP(i));
+        }
     }
 }
 
@@ -109,10 +108,6 @@ public void OnPluginEnd() {
 
 public void OnClientCookiesCached(int iClient) {
     g_bEnabled[iClient] = Kruzya_GetClientIntCookie(iClient, g_hCookie, 0) != 0;
-
-    if (g_bChecked[iClient] && VIP_IsClientVIP(iClient) && VIP_GetClientFeatureStatus(iClient, g_szVIP) != NO_ACCESS) {
-        VIP_SetClientFeatureStatus(iClient, g_szVIP, g_bEnabled[iClient] ? ENABLED : DISABLED);
-    }
 }
 
 public void OnClientDisconnect(int iClient) {
@@ -120,7 +115,6 @@ public void OnClientDisconnect(int iClient) {
         return;
 
     Kruzya_SetClientIntCookie(iClient, g_hCookie, g_bEnabled[iClient] ? 1 : 0);
-    g_bChecked[iClient] = false;
 }
 
 /**
@@ -135,14 +129,6 @@ public void VIP_OnVIPLoaded() {
 }
 
 public void VIP_OnClientLoaded(int iClient, bool bIsVIP) {
-    g_bChecked[iClient] = true;
-    if (!AreClientCookiesCached(iClient))
-        return;
-
-    if (AreClientCookiesCached(iClient) && VIP_IsClientVIP(iClient) && VIP_GetClientFeatureStatus(iClient, g_szVIP) != NO_ACCESS) {
-        VIP_SetClientFeatureStatus(iClient, g_szVIP, g_bEnabled[iClient] ? ENABLED : DISABLED);
-    }
-
     ToggleHalloweenVoice(iClient, g_bEnabled[iClient]);
 }
 
@@ -157,9 +143,6 @@ public Action VIP_OnToggledItem(int iClient, const char[] szFeatureName, VIP_Tog
  * @section Toggler
  */
 void ToggleHalloweenVoice(int iClient, bool bNewState) {
-    if (!g_bChecked[iClient])
-        return;
-
     float fValue = bNewState ? 1.0 : 0.0;
     TF2Attrib_SetByDefIndex(iClient, 1006, fValue);
 }
