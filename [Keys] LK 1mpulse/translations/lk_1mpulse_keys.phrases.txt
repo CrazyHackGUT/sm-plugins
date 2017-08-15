@@ -1,0 +1,21 @@
+"Phrases"
+{
+    "InvalidArgumentCount"
+    {
+        "en"        "Invalid argument count."
+        "ru"        "Неверное кол-во аргументов."
+    }
+
+    "InvalidArgument"
+    {
+        "en"        "Invalid argument."
+        "ru"        "Неверный аргумент."
+    }
+
+    "KeyPrint"
+    {
+        "#format"   "{1:s}"
+        "en"        "Sum: {1}"
+        "ru"        "Сумма: {1}"
+    }
+}
