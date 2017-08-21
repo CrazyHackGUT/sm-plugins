@@ -44,7 +44,7 @@
  * @section Constants
  */
 #define PLUGIN_DESCRIPTION  "Menu for editing colors/prefix in chat."
-#define PLUGIN_VERSION      "2.0"
+#define PLUGIN_VERSION      "2.0.1"
 #define PLUGIN_AUTHOR       "CrazyHackGUT aka Kruzya"
 #define PLUGIN_NAME         "[VIP] Custom Chat Colors"
 #define PLUGIN_URL          "https://kruzefag.ru/"
@@ -124,10 +124,10 @@ public void OnPluginStart() {
 
     // Load clients.
     for (int i; ++i <= MaxClients;) {
-        if (!IsClientInGame(i) || IsFakeClient(i) || !AreClientCookiesCached(i))
+        if (!IsClientInGame(i) || IsFakeClient(i))
             continue;
 
-        OnClientCookiesCached(i);
+        VIP_OnClientLoaded(i, VIP_IsClientVIP(i));
     }
 
     // Attach to VIP Core.
@@ -212,6 +212,7 @@ public void VIP_OnVIPLoaded() {
 }
 
 public void VIP_OnClientLoaded(int iClient, bool bIsVIP) {
+    g_bChatEnabled[iClient] && Setup(iClient);
     if (!bIsVIP)
         return;
 
@@ -229,7 +230,12 @@ public void OnClientCookiesCached(int iClient) {
         Kruzya_SetClientIntCookie(iClient, g_hCookies[5], 0);
     }
 
-    OnFullyLoaded(iClient);
+    g_iCChat[iClient]       = Kruzya_GetClientIntCookie(iClient, g_hCookies[1]);
+    g_iCName[iClient]       = Kruzya_GetClientIntCookie(iClient, g_hCookies[2]);
+    g_iCPrefix[iClient]     = Kruzya_GetClientIntCookie(iClient, g_hCookies[3]);
+    g_bChatEnabled[iClient] = (Kruzya_GetClientIntCookie(iClient, g_hCookies[5]) != 0);
+
+    GetClientCookie(iClient, g_hCookies[0], SZFA(g_szPrefix, iClient));
 }
 
 public void OnClientDisconnect(int iClient) {
@@ -617,21 +623,6 @@ public int Menu_PresetsHandler(Handle hMenu, MenuAction eAction, int iParam1, in
 /**
  * @section Setup color.
  */
-void OnFullyLoaded(int iClient) {
-    g_iCChat[iClient]       = Kruzya_GetClientIntCookie(iClient, g_hCookies[1]);
-    g_iCName[iClient]       = Kruzya_GetClientIntCookie(iClient, g_hCookies[2]);
-    g_iCPrefix[iClient]     = Kruzya_GetClientIntCookie(iClient, g_hCookies[3]);
-    g_bChatEnabled[iClient] = (Kruzya_GetClientIntCookie(iClient, g_hCookies[5]) != 0);
-
-    GetClientCookie(iClient, g_hCookies[0], SZFA(g_szPrefix, iClient));
-
-    g_bChatEnabled[iClient] && Setup(iClient);
-
-    if (VIP_IsClientVIP(iClient) && VIP_IsClientFeatureUse(iClient, g_szVIPPermission)) {
-        VIP_SetClientFeatureStatus(iClient, g_szVIPEnabler, g_bChatEnabled[iClient] ? ENABLED : DISABLED);
-    }
-}
-
 void UpdateAFKTime(int iClient) {
     Kruzya_SetClientIntCookie(iClient, g_hCookies[4], UNIXTIME);
 }
