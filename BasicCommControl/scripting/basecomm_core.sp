@@ -42,7 +42,7 @@
  */
 public Plugin myinfo = {
     description = "Provides API methods of controlling communication.",
-    version     = "1.0 (compiled for " ... SOURCEMOD_VERSION ... ")",
+    version     = "1.0.1 (compiled for " ... SOURCEMOD_VERSION ... ")",
     author      = "AlliedModders LLC, CrazyHackGUT aka Kruzya",
     name        = "[API] Basic Comm Control"
 };
@@ -62,6 +62,9 @@ enum CommType {
  */
 bool    g_bState[MAXPLAYERS+1][CommType];   // Is the player muted/gagged?
 Handle  g_hForwards[CommType];              // Holds the handles for Global Forwards
+
+Handle  g_hCallForwards;                    // ConVar
+bool    g_bCallForwards;
 
 /**
  * @section Generic SourceMod events.
@@ -91,6 +94,25 @@ public APLRes AskPluginLoad2(Handle hMySelf, bool bLate, char[] szError, int iEr
     RegPluginLibrary("basecomm");
 
     return APLRes_Success;
+}
+
+public void OnPluginStart() {
+    g_hCallForwards = CreateConVar(
+        "sm_basecomm_forwards", "1.0",
+        "Should we trigger forwards when issuing mutes?",
+        _, true, 0.0, true, 1.0
+    );
+
+    HookConVarChange(g_hCallForwards, OnCvarChanged);
+    AutoExecConfig(true, "basecomm_core");
+}
+
+public void OnConfigsExecuted() {
+    g_bCallForwards = GetConVarBool(g_hCallForwards);
+}
+
+public void OnCvarChanged(Handle hCvar, const char[] szNV, const char[] szOV) {
+    g_bCallForwards = GetConVarBool(g_hCallForwards);
 }
 
 public bool OnClientConnect(int iClient, char[] szRejectMessage, int iLength) {
@@ -176,7 +198,8 @@ public int Native_SetClientGag(Handle hPlugin, int iNumParams) {
     return UTIL_PerformAction(
         Chat,
         UTIL_ValidateNativeClient(1),
-        GetNativeCell(2)
+        GetNativeCell(2),
+        g_bCallForwards
     );
 }
 
@@ -184,6 +207,7 @@ public int Native_SetClientMute(Handle hPlugin, int iNumParams) {
     return UTIL_PerformAction(
         Voice,
         UTIL_ValidateNativeClient(1),
-        GetNativeCell(2)
+        GetNativeCell(2),
+        g_bCallForwards
     );
 }
