@@ -12,7 +12,7 @@ SMCParser g_hParser;
 
 #define LOG(%0)         LogToFileEx(g_szPluginLog, %0)
 
-#define PLUGIN_VERSION  "1.0"
+#define PLUGIN_VERSION  "1.1"
 #define PLUGIN_AUTHOR   "CrazyHackGUT aka Kruzya"
 #define PLUGIN_URL      "https://kruzefag.ru/"
 
@@ -40,12 +40,20 @@ public void OnPluginStart() {
 }
 
 public void OnMapStart() {
+  // config load order (example map: workshop/12345678/de_olddust2)
+  // - default
+  // - de
+  // - de_olddust2
+
   LoadMapConfig("default", true);
 
   char szMap[PLATFORM_MAX_PATH];
   GetCurrentMap(szMap, sizeof(szMap));
 
-  int iPos;
+  int iPos = FindCharInString(szMap, '/', true);
+  if (iPos != -1)
+    strcopy(szMap, sizeof(szMap), szMap[iPos+1]);
+
   if ((iPos = FindCharInString(szMap, '_')) != -1) {
     iPos++;
     char[] szMapPrefix = new char[iPos];
@@ -54,11 +62,7 @@ public void OnMapStart() {
     LoadMapConfig(szMapPrefix, false);
   }
 
-  if ((iPos = FindCharInString(szMap, '/', true)) != -1) { // workshop map scratch
-    LoadMapConfig(szMap[iPos+1], false);
-  } else {
-    LoadMapConfig(szMap, false);
-  }
+  LoadMapConfig(szMap, false);
 }
 
 public void OnConfigsExecuted() {
