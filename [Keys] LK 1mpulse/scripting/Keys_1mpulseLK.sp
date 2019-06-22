@@ -40,7 +40,7 @@
 static const char g_szKeyName[] = "lk_1mpulse";
 
 public Plugin myinfo = {
-    version = "1.0",
+    version = "1.1",
     author  = "CrazyHackGUT aka Kruzya",
     name    = "[Keys] LK 1mpulse",
     url     = "https://kruzefag.ru/"
@@ -52,6 +52,10 @@ public void OnPluginStart() {
     }
 
     LoadTranslations("lk_1mpulse_keys.phrases");
+}
+
+public void OnPluginEnd() {
+    Keys_UnregKey(g_szKeyName);
 }
 
 public int Keys_OnCoreStarted() {
