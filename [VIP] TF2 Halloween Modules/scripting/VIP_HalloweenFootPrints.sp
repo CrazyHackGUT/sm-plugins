@@ -43,7 +43,7 @@
  * @section Constants
  */
 #define PLUGIN_DESCRIPTION  "The footprints of the mercenary Team Fortress 2 from Halloween."
-#define PLUGIN_VERSION      "1.1"
+#define PLUGIN_VERSION      "1.1.1"
 #define PLUGIN_AUTHOR       "CrazyHackGUT aka Kruzya"
 #define PLUGIN_NAME         "[VIP] Halloween Footprints"
 #define PLUGIN_URL          "https://kruzefag.ru/"
@@ -90,6 +90,17 @@ int     g_iFootprint[MPL+1];
 /**
  * @section SourceMod events.
  */
+public APLRes AskPluginLoad2(Handle hMySelf, bool bLate, char[] szBuffer, int iLength)
+{
+    if (GetEngineVersion() != Engine_TF2)
+    {
+        strcopy(szBuffer, iLength, "This plugin works only in TF2");
+        return APLRes_Failure;
+    }
+
+    return APLRes_Success;
+}
+
 public void OnPluginStart() {
     g_hCookie = RegClientCookie(g_szVIP, "[TF2] Halloween Footprints", CookieAccess_Private);
 

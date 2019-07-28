@@ -44,7 +44,7 @@
  * @section Constants
  */
 #define PLUGIN_DESCRIPTION  "The effect of the distorted voice of the mercenary Team Fortress 2 from Halloween."
-#define PLUGIN_VERSION      "1.0"
+#define PLUGIN_VERSION      "1.0.1"
 #define PLUGIN_AUTHOR       "CrazyHackGUT aka Kruzya"
 #define PLUGIN_NAME         "[VIP] Halloween Distorted Voice"
 #define PLUGIN_URL          "https://kruzefag.ru/"
@@ -77,6 +77,17 @@ bool    g_bEnabled[MPL+1];
 /**
  * @section SourceMod events.
  */
+public APLRes AskPluginLoad2(Handle hMySelf, bool bLate, char[] szBuffer, int iLength)
+{
+    if (GetEngineVersion() != Engine_TF2)
+    {
+        strcopy(szBuffer, iLength, "This plugin works only in TF2");
+        return APLRes_Failure;
+    }
+
+    return APLRes_Success;
+}
+
 public void OnPluginStart() {
     g_hCookie = RegClientCookie(g_szVIP, "[TF2] Halloween Distorted Voice - Toggler", CookieAccess_Private);
 
