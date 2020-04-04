@@ -35,9 +35,12 @@ ArrayList g_hProtected;
 StringMap g_hCvValues;
 SMCParser g_hParser;
 
+ConVar    g_hFrequency;
+Handle    g_hTimer;
+
 #define LOG(%0)         LogToFileEx(g_szPluginLog, %0)
 
-#define PLUGIN_VERSION  "1.1.0.1"
+#define PLUGIN_VERSION  "1.2.0.0"
 #define PLUGIN_AUTHOR   "CrazyHackGUT aka Kruzya"
 #define PLUGIN_URL      "https://kruzefag.ru/"
 
@@ -62,6 +65,9 @@ public void OnPluginStart() {
 
   RegServerCmd("sm_dump_cvarprotect", Cmd_DumpCvarProtect);
   RegServerCmd("sm_reloadcvarprotect", Cmd_ReloadCvarProtect);
+
+  g_hFrequency = CreateConVar("sm_cvarprotect_frequency", "0.0", "How often convar values should be verified? Use value less 1.0 for disabling this option", _, true, 0.0, false, 0.0);
+  g_hFrequency.AddChangeHook(OnFrequencyChanged);
 }
 
 public void OnMapStart() {
@@ -91,6 +97,7 @@ public void OnMapStart() {
 }
 
 public void OnConfigsExecuted() {
+  OnFrequencyChanged(null, NULL_STRING, NULL_STRING);
   RecheckConvars();
 }
 
@@ -259,4 +266,23 @@ void RecheckConvars() {
 
     OnCvarChanged(hCvar, NULL_STRING, szCurrentValue);
   }
+}
+
+Action RecheckConvarsTimer(Handle hTimer) {
+  RecheckConvars();
+}
+
+void OnFrequencyChanged(ConVar hCvar, const char[] szOldValue, const char[] szNewValue) {
+  if (g_hTimer != null)
+  {
+    KillTimer(g_hTimer, false);
+  }
+
+  float flValue = g_hFrequency.FloatValue;
+  if (flValue < 1.0)
+  {
+    return;
+  }
+
+  g_hTimer = CreateTimer(flValue, RecheckConvarsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 }
