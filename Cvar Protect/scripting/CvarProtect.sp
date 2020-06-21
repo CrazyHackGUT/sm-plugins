@@ -276,6 +276,7 @@ void OnFrequencyChanged(ConVar hCvar, const char[] szOldValue, const char[] szNe
   if (g_hTimer != null)
   {
     KillTimer(g_hTimer, false);
+    g_hTimer = null;
   }
 
   float flValue = g_hFrequency.FloatValue;
